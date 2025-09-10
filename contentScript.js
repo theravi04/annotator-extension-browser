@@ -25,7 +25,7 @@
     top: "0",
     width: document.documentElement.scrollWidth + "px",
     height: document.documentElement.scrollHeight + "px",
-    pointerEvents: "auto",
+    pointerEvents: "none",
     background: "transparent",
   });
 
@@ -65,17 +65,18 @@
   });
   toolbar.innerHTML = `
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-      <button id="pa-draw" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">✏️ Draw</button>
-      <button id="pa-comment" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">💬 Comment</button>
-      <button id="pa-undo" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">↶ Undo</button>
-      <button id="pa-clear" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">🗑️ Clear</button>
-      <button id="pa-send" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #dbeafe, #bfdbfe);border:1px solid #93c5fd;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">👁️ Preview</button>
-      <button id="pa-close" style="color:#ef4444;font-weight:600;background:linear-gradient(135deg, #fef2f2, #fee2e2);border:1px solid #fca5a5;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">✕ Close</button>
+      <button id="pa-draw" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">Draw</button>
+      <button id="pa-comment" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">Comment</button>
+      <button id="pa-undo" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">Undo</button>
+      <button id="pa-clear" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #f1f5f9, #e2e8f0);border:1px solid #cbd5e1;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">Clear</button>
+      <button id="pa-send" style="color:#334155;font-weight:600;background:linear-gradient(135deg, #dbeafe, #bfdbfe);border:1px solid #93c5fd;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">Preview</button>
+      <button id="pa-close" style="color:#ef4444;font-weight:600;background:linear-gradient(135deg, #fef2f2, #fee2e2);border:1px solid #fca5a5;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:all 0.2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.05);">Close</button>
     </div>
   `;
   container.appendChild(toolbar);
 
   let drawEnabled = false;
+  canvas.style.pointerEvents = drawEnabled ? 'auto' : 'none';
 
   const toggleBtn = document.createElement("button");
   toggleBtn.textContent = "🎨 Draw: OFF";
@@ -98,9 +99,10 @@
 
   toggleBtn.addEventListener("click", () => {
     drawEnabled = !drawEnabled;
+    canvas.style.pointerEvents = drawEnabled ? 'auto' : 'none';
     if (drawEnabled) {
       canvas.style.pointerEvents = "auto";
-      toggleBtn.textContent = "🎨 Draw: ON";
+      toggleBtn.textContent = "Draw: ON";
       toggleBtn.style.color = "#059669";
       toggleBtn.style.background = "linear-gradient(135deg, #d1fae5, #a7f3d0)";
       toggleBtn.style.borderColor = "#6ee7b7";
@@ -108,7 +110,7 @@
       toggleBtn.style.boxShadow = "0 4px 12px rgba(34, 197, 94, 0.2)";
     } else {
       canvas.style.pointerEvents = "none";
-      toggleBtn.textContent = "🎨 Draw: OFF";
+      toggleBtn.textContent = "Draw: OFF";
       toggleBtn.style.color = "#6b7280";
       toggleBtn.style.background = "linear-gradient(135deg, #f9fafb, #f3f4f6)";
       toggleBtn.style.borderColor = "#e5e7eb";
