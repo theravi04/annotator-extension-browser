@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>PageAnnotator</title>
+  <link rel="stylesheet" href="styles/popup.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h3>PageAnnotator</h3>
+    <div class="row">
+      <label>Session ID</label>
+      <input id="sessionId" readonly />
+    </div>
+
+    <div class="row">
+      <button id="startBtn">Start Annotation</button>
+      <button id="stopBtn" disabled>Remove Overlay</button>
+    </div>
+
+    <small class="hint">Start will inject the annotator into the current tab.</small>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
