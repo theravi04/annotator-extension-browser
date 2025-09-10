@@ -399,11 +399,13 @@
 
   // frontend-only "send": just preview image in new tab
   toolbar.querySelector("#pa-send").addEventListener("click", async () => {
+    toolbar.style.display = 'none'
     const capture = await new Promise((resolve) => {
       chrome.runtime.sendMessage({ type: "capture" }, (response) => {
         resolve(response);
       });
     });
+    toolbar.style.display = 'block'
     if (!capture || capture.error) {
       alert("Capture failed: " + (capture && capture.error));
       return;
